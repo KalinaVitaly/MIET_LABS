@@ -1,33 +1,71 @@
 #include <iostream>
+#include <stdio.h>
 #include <omp.h>
+#include <cstdlib>
 
-using namespace std;
+void InitializationArray(int *arr);
+unsigned long long int CompositionFunction(int *A, int *B, bool is_parallel = true);
+int MAX(int a, int b);
 
-const int N = 100;
+const size_t N = 1000;
 
-int main()
+int main (void)
 {
-	int arr[N];
-	int sum = 0;
+	int A[N];
+	int B[N];
+	unsigned long long int composition;
+	double time_begin;
+	double time_end;
 
-	for(int i = 0; i < N; ++i)
-	{
-		arr[N] = i;
-		sum += i;
-	}
-
-	std::cout << "Result: " << sum << std::endl;
-
-	int par_sum = 0;
-
-#pragma omp parallel for
-{
-	for(int i = 0; i < N; ++i)
-   	{
-		par_sum += arr[i];
-    	}
-}
+	InitializationArray(A);
+	InitializationArray(B);
 	
-	std::cout << "Result par sum: " << par_sum << std::endl;
-	return 0;	
+#ifdef _OPENMP
+    printf ("parallel region, thread=%d\n", omp_get_thread_num());
+	time_begin = omp_get_wtime();	
+    composition = CompositionFunction(A, B, true);
+	time_end = omp_get_wtime();	
+    std::cout << "Composition: " << composition << " Time: " << (time_end - time_begin) * 100000  <<  std::endl; 
+
+#else
+    printf ("parallel region, thread=main\n");
+#endif
+ 	return 0;
+}
+
+void InitializationArray(int *arr)
+{
+	for(size_t i = 0; i < N; ++i)
+	{
+		arr[i] = rand() % 5;
+		//std::cout << arr[i] << " ";
+	}
+	//std::cout << std::endl;
+}
+
+unsigned long long int CompositionFunction(int *A, int *B, bool is_parallel)
+{
+	unsigned long long int composition = 1;
+	size_t i;
+	int result; 
+
+#pragma omp parallel shared(A, B) if (is_parallel)
+{
+#pragma omp for private(i, result) reduction(+:composition)
+	for(i = 0; i < N; ++i)
+	{
+		if((result = MAX(A[i] + B[i], 4 * A[i] - B[i])) > 1)
+		{
+			//std::cout << "Current composition: " << composition << " " << result << " " << MAX(A[i] + B[i], 4 * A[i] + B[i])  << std::endl;
+			composition = composition + result;
+		}
+	}
+}
+	//std::cout << composition << std::endl;
+	return composition;
+}
+
+int MAX(int a, int b)
+{
+	return a > b ? a : b;
 }
