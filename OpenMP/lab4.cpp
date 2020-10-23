@@ -24,7 +24,7 @@ int main (void)
     InitializationArray(B);
 
     time_begin = omp_get_wtime();	
-    composition = CompositionFunction(A, B, false);
+    composition = CompositionFunction(A, B, true);
     time_end = omp_get_wtime();	
     std::cout << "Composition: " << composition << " Time: " << time_end * 100000  - time_begin * 100000  <<  std::endl; 
 
@@ -59,7 +59,8 @@ unsigned long long int CompositionFunction(int *A, int *B, bool is_parallel)
     {
          if((result = MAX(A[i] + B[i], 4 * A[i] - B[i])) > 1)
          {
-             #pragma omp atomic
+            // #pragma omp atomic
+            #pragma omp critical
                  composition = composition + result;
          }
     }
