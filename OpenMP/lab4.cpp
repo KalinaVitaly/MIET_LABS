@@ -22,7 +22,7 @@ int main (void)
     
     InitializationArray(A);
     InitializationArray(B);
-    
+
     time_begin = omp_get_wtime();	
     composition = CompositionFunction(A, B, false);
     time_end = omp_get_wtime();	
@@ -39,7 +39,7 @@ int main (void)
 void InitializationArray(int *arr)
 {
     size_t i;
-#pragma omp parallel for shared(arr) private(i)
+#pragma omp parallel for private(i)
     for(i = 0; i < N; ++i)
     {
          arr[i] = rand() % 5;
@@ -52,14 +52,15 @@ unsigned long long int CompositionFunction(int *A, int *B, bool is_parallel)
     size_t i;
     int result; 
 
-#pragma omp parallel shared(A, B) if (is_parallel)
+#pragma omp parallel shared(A, B, composition) if (is_parallel)
 {
-#pragma omp for private(i, result) reduction(+:composition)
+#pragma omp for private(i, result)
     for(i = 0; i < N; ++i)
     {
          if((result = MAX(A[i] + B[i], 4 * A[i] - B[i])) > 1)
          {
-             composition = composition + result;
+             #pragma omp atomic
+                 composition = composition + result;
          }
     }
 }
