@@ -16,17 +16,27 @@ int main (void)
     unsigned long long int composition;
     double time_begin;
     double time_end;
-
-    InitializationArray(A);
-    InitializationArray(B);
 	
 #ifdef _OPENMP
-    printf ("parallel region, thread=%d\n", omp_get_thread_num());
-    time_begin = omp_get_wtime();	
+    printf ("parallel region\n");
+    time_begin = omp_get_wtime();
+    InitializationArray(A);
+    InitializationArray(B);    
     composition = CompositionFunction(A, B, true);
     time_end = omp_get_wtime();	
-    std::cout << "Composition: " << composition << " Time: " << time_end * 100000  - time_begin * 100000  <<  std::endl; 
+    std::cout << "Lock:\t"  << composition << " Time: " << time_end * 100000  - time_begin * 100000  <<  std::endl; 
+    
+    time_begin = omp_get_wtime();
+#pragma omp parallel
+{
+    InitializationArray(A);
+    InitializationArray(B);
 
+#pragma omp barrier
+    composition = CompositionFunction(A, B, true);
+}
+    time_end = omp_get_wtime();
+    std::cout << "Barrier:\t"  << composition << " Time: " << time_end * 100000  - time_begin * 100000  <<  std::endl;
 #else
     printf ("parallel region, thread=main\n");
 #endif
@@ -37,7 +47,9 @@ int main (void)
 
 void InitializationArray(int *arr)
 {
-    for(size_t i = 0; i < N; ++i)
+    size_t i;
+#pragma omp parallel for private(i)
+    for(i = 0; i < N; ++i)
     {
          arr[i] = rand() % 5;
     }
