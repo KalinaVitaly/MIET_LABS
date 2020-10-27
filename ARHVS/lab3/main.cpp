@@ -1,13 +1,19 @@
 #include <iostream> //подключаем функцию вывода текста на экран cout
 
+extern "C" void inpute();
+void inpute()
+{
+    int inp1, inp2;
+    std::cin >> inp1 >> inp2;
+    std::cout << "first input: " << inp1 << std::endl << "second input: " << inp2 << std::endl;
+}
+
 int main()
 {
-   //long long a,b;
+//begin first problem
+    long long a,b;
     int x = 6;
     int y;
-    //
-    int z = 1 + x / 2;
-    //
 
     asm(
     "mov    -0x8(%rbp),%eax\n"
@@ -19,5 +25,11 @@ int main()
     "mov    %eax,-0x4(%rbp)\n"
            );
 
-    std::cout << y;
+    std::cout << y << std::endl;
+//end first problem
+
+//begin second problem
+    asm(
+    "callq inpute\n"
+          );
 }
