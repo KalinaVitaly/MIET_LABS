@@ -11,7 +11,7 @@ public class Botanist extends Person {
         average_mark = _average_mark;
     }
     @Override
-    public void CreatePair() {
+    public void CreatePair(Person ...parents) {
 
     }
 

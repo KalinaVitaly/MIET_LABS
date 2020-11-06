@@ -7,6 +7,7 @@ public abstract class Person {
     protected String surname;
     protected String patronymic;
     protected boolean sex;
+    protected boolean has_pair;
 
     Person(String _name, String _surname, String _patronymic,
            boolean _sex, int _cash, int _age) {
@@ -16,9 +17,10 @@ public abstract class Person {
         surname = _surname;
         patronymic = _patronymic;
         sex = _sex;
+        has_pair = false;
     }
 
-    public abstract void CreatePair();
+    public abstract void CreatePair(Person ...parents);
     public abstract String toString();
 
     public int getAge() {return age;}
