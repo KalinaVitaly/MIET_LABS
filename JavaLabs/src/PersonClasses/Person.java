@@ -18,6 +18,8 @@ public abstract class Person {
         has_pair = false;
     }
 
+    public Person() {}
+
     public abstract void CreatePair(Person ...parents);
     public abstract String toString();
 

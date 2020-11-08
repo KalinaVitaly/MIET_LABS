@@ -7,16 +7,21 @@ public class Botanist extends Person {
     private int average_mark;
     private CoolParent parent;
 
-    Botanist(String _name, String _surname, String _patronymic,
+    public Botanist(String _name, String _surname, String _patronymic,
             boolean _sex, int _age, int _average_mark) {
         super(_name, _surname, _patronymic, _sex, _age);
         average_mark = _average_mark;
+    }
+
+    public  Botanist() {
+        super();
     }
     @Override
     public void CreatePair(Person ...coolparents) {
         for(Person i : coolparents) {
             if (!i.has_pair && Math.pow(10, average_mark) == ((CoolParent)i).getCash()) {
                 super.has_pair = true;
+                parent = new CoolParent();
                 parent = (CoolParent) i;
                 ((CoolParent) i).setBotanist(this);
                 ((CoolParent) i).has_pair = true;
@@ -26,7 +31,8 @@ public class Botanist extends Person {
 
     @Override
     public String toString() {
-        return super.name + " " + super.surname + " " + super.patronymic + " " + super.age + " " + super.sex + " " + average_mark + "\n";
+        return "Pair:" + super.name + " " + super.surname + " " + super.patronymic + " " +
+                super.age + " " + super.sex + " " + average_mark + "\n" + parent.getName() + "\n";
     }
 
     public int getAverageMark() { return average_mark; }
