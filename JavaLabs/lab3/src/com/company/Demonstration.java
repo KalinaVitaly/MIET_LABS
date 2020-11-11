@@ -2,16 +2,34 @@ package com.company;
 
 import PersonClasses.*;
 import Managment.FileManager;
-
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Demonstration {
     private ArrayList<Person> people;
-    private String filename;
+    private Date date;
+    private ArrayList<String> activity_history;
+    private final String filename_persons;
+    private final String file_activity_history;
+    private String[] main_menu = new String[] {
+            "Add Botanist\n",
+            "Add Student\n",
+            "Add Parent\n",
+            "Add CoolParent\n",
+            "Create pairs student and parent\n",
+            "Create pairs botanist and cool parent\n",
+            "Print all information\n",
+            "Save all on File\n",
+            "Read all from file\n",
+            "Get history\n"
+    };
 
     public Demonstration() {
         people = new ArrayList<Person>();
-        filename = "/home/vitaly/Документы/MIET_LABS/JavaLabs/DataBase";
+        activity_history = new ArrayList<String>();
+        filename_persons = "/home/vitaly/Документы/MIET_LABS/JavaLabs/lab3/DataBase";
+        file_activity_history = "/home/vitaly/Документы/MIET_LABS/JavaLabs/lab3/DataBaseActivityHistory";
+        date = new Date();
     }
 
     public void add(Person person) {
@@ -19,18 +37,22 @@ public class Demonstration {
         System.out.print("Add: " + person.toString());
     }
 
-    public void MainMenuDisplay() {
-        System.out.println("-----MENU-----");
-        System.out.println("1) Add Botanist");
-        System.out.println("2) Add Student");
-        System.out.println("3) Add Parent");
-        System.out.println("4) Add CoolParent");
-        System.out.println("5) Create pairs student and parent");
-        System.out.println("6) Create pairs botanist and cool parent");
-        System.out.println("7) Print all information");
-        System.out.println("8) Save all on File");
-        System.out.println("9) Read all from file");
-        System.out.println("--------------");
+    public void MainMenuDisplay(boolean user_enter) {
+        if (user_enter) {
+            int number = 1;
+            System.out.println("-----MENU-----");
+            for(String i : main_menu) {
+                System.out.print(number + ") " + i);
+                ++number;
+            }
+            System.out.println("--------------");
+        }
+        else {
+            System.out.println("-----MENU-----");
+            System.out.println("1) Sign Up");
+            System.out.println("2) Sign In");
+            System.out.println("--------------");
+        }
     }
 
     public void Processing(int _choose) {
@@ -61,10 +83,20 @@ public class Demonstration {
             Print();
         }
         else if (_choose == 8) {
-            FileManager.Save(people, filename);
+            FileManager.Save(people, filename_persons );
         }
         else if (_choose == 9) {
-            people = FileManager.Load(filename);
+            people = FileManager.Load(filename_persons );
+        }
+        else if (_choose == 10) {
+            PrintHistoryActivity();
+        }
+
+        if (_choose >= 1 && _choose <= 9) {
+            activity_history.add(date.toString() + "\t" + main_menu[_choose]);
+        }
+        else {
+            activity_history.add(date.toString() + "\t" + "Error input " + _choose + "\n");
         }
     }
 
@@ -80,6 +112,12 @@ public class Demonstration {
             if (i instanceof Botanist && !i.getHasPair()) {
                 ((Botanist)i).CreatePair(people);
             }
+        }
+    }
+
+    void PrintHistoryActivity() {
+        for (String i : activity_history) {
+            System.out.print(i);
         }
     }
 
