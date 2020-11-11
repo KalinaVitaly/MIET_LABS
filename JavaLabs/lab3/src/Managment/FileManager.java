@@ -18,12 +18,12 @@ public class FileManager {
         }
     }
 
-    public static ArrayList<Person> Load(String filename) {
-        ArrayList<Person> persons = new ArrayList<Person>();
+    public static <T> ArrayList<T> Load(String filename) {
+        ArrayList<T> persons = new ArrayList<T>();
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename)))
         {
-            persons = ((ArrayList<Person>)ois.readObject());
-            for(Person p : persons)
+            persons = ((ArrayList<T>)ois.readObject());
+            for(T p : persons)
                 System.out.printf(p.toString());
         }
         catch(Exception ex){

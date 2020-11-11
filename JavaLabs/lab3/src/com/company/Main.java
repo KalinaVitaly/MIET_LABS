@@ -1,12 +1,23 @@
 package com.company;
 
+import Managment.FileManager;
 import PersonClasses.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import UserPack.*;
 
 public class Main {
 
     public static void main(String[] args) {
+    ArrayList<User> users = new ArrayList<User>();
+    users = FileManager.Load(User.getFileVerification());
+    User user = null;
+    Scanner in = new Scanner(System.in);
+    Demonstration d = new Demonstration();
+    boolean user_entered = false;
+    int choose;
+
 	// write your code here
 //        Student student1 = new Student("Andrew", "Monkey", "Roma", true, 34, 4);
 //        Student student2 = new Student("Israel", "Monkey", "Vardy", true, 34, 4);
@@ -24,9 +35,6 @@ public class Main {
 //        Parent parent2 = new Parent("Vardy", "Akimov", "VAssalam", true, 68);
 //        Parent parent3 = new Parent("Ahroma", "Salimov", "XAssalam", true, 68);
 //        Parent parent4 = new Parent("Luicy", "Mansurov", "PAssalam", true, 68);
-
-        Scanner in = new Scanner(System.in);
-        Demonstration d = new Demonstration();
 //        d.add(student1);
 //        d.add(student2);
 //        d.add(student3);
@@ -45,8 +53,21 @@ public class Main {
 //        d.add(parent4);
 
         while (true) {
-            //d.MainMenuDisplay(true);
-            int choose = in.nextInt();
+            if (!user_entered) {
+                d.FirstMainMenuDisplay();
+                choose = in.nextInt();
+                user = d.ProcessingFirst(users, choose);
+                if (!user.equals(null)){
+                    user_entered = true;
+                }
+            }
+            else {
+                d.SecondMainMenu(user);
+                String _choose = in.nextLine();
+                d.Processing(user, _choose);
+            }
+
+
             //d.Processing(choose);
         }
     }
