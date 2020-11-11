@@ -10,9 +10,11 @@ public abstract class Person implements Serializable {
     protected String patronymic;
     protected boolean sex;
     protected boolean has_pair;
+    protected static String filename_persons;
 
     Person(String _name, String _surname, String _patronymic,
            boolean _sex, int _age) {
+        filename_persons = "/home/vitaly/Документы/MIET_LABS/JavaLabs/lab3/DataBase";
         age = _age;
         name = _name;
         surname = _surname;
@@ -33,4 +35,5 @@ public abstract class Person implements Serializable {
     public String getName() {return name;}
     public String getSurname() {return surname;}
     public String getPatronymic() {return patronymic;}
+    public static String getFilenamePersons() {return filename_persons;}
 }

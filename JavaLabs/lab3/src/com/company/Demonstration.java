@@ -1,7 +1,10 @@
 package com.company;
 
+import Managment.GarbageError;
 import PersonClasses.*;
 import Managment.FileManager;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,25 +12,11 @@ public class Demonstration {
     private ArrayList<Person> people;
     private Date date;
     private ArrayList<String> activity_history;
-    private final String filename_persons;
     private final String file_activity_history;
-    private String[] main_menu = new String[] {
-            "Add Botanist\n",
-            "Add Student\n",
-            "Add Parent\n",
-            "Add CoolParent\n",
-            "Create pairs student and parent\n",
-            "Create pairs botanist and cool parent\n",
-            "Print all information\n",
-            "Save all on File\n",
-            "Read all from file\n",
-            "Get history\n"
-    };
 
     public Demonstration() {
         people = new ArrayList<Person>();
         activity_history = new ArrayList<String>();
-        filename_persons = "/home/vitaly/Документы/MIET_LABS/JavaLabs/lab3/DataBase";
         file_activity_history = "/home/vitaly/Документы/MIET_LABS/JavaLabs/lab3/DataBaseActivityHistory";
         date = new Date();
     }
@@ -37,7 +26,7 @@ public class Demonstration {
         System.out.print("Add: " + person.toString());
     }
 
-    public void MainMenuDisplay(boolean user_enter) {
+    public void MainMenuDisplay(ArrayList<String> main_menu, boolean user_enter) {
         if (user_enter) {
             int number = 1;
             System.out.println("-----MENU-----");
@@ -55,7 +44,7 @@ public class Demonstration {
         }
     }
 
-    public void Processing(int _choose) {
+    public void Processing(ArrayList<String> main_menu, int _choose) {
         if (_choose >= 1 && _choose <= 4) {
             Person botanist;
             if (_choose == 1) {
@@ -83,20 +72,23 @@ public class Demonstration {
             Print();
         }
         else if (_choose == 8) {
-            FileManager.Save(people, filename_persons );
+            FileManager.Save(people, Person.getFilenamePersons());
         }
         else if (_choose == 9) {
-            people = FileManager.Load(filename_persons );
+            people = FileManager.Load(Person.getFilenamePersons());
         }
         else if (_choose == 10) {
             PrintHistoryActivity();
         }
+        else if (_choose == 11) {
+            ExitProgram();
+        }
 
-        if (_choose >= 1 && _choose <= 9) {
-            activity_history.add(date.toString() + "\t" + main_menu[_choose]);
+        if (_choose >= 1 && _choose <= 11) {
+            activity_history.add(date.toString() + "\t" + main_menu.get(_choose - 1));
         }
         else {
-            activity_history.add(date.toString() + "\t" + "Error input " + _choose + "\n");
+            GarbageError.addError("Incorrect choose: " + _choose);
         }
     }
 
@@ -125,5 +117,10 @@ public class Demonstration {
         for (Person i : people) {
             System.out.print(i.toString());
         }
+    }
+
+    void ExitProgram() {
+        FileManager.Save(GarbageError.getErrorHistory(), GarbageError.getFileError());
+        FileManager.Save(activity_history, file_activity_history);
     }
 }

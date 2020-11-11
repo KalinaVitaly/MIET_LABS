@@ -7,14 +7,13 @@ import java.io.*;
 public class FileManager {
     public FileManager() {}
 
-    public static void Save(ArrayList<Person> persons, String filename) {
+    public static <T> void Save(ArrayList<T> persons, String filename) {
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename)))
         {
             oos.writeObject(persons);
             System.out.println("File has been written");
         }
         catch(Exception ex){
-
             System.out.println(ex.getMessage());
         }
     }

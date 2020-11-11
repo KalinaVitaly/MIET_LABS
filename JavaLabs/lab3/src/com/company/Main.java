@@ -45,9 +45,9 @@ public class Main {
 //        d.add(parent4);
 
         while (true) {
-            d.MainMenuDisplay(true);
+            //d.MainMenuDisplay(true);
             int choose = in.nextInt();
-            d.Processing(choose);
+            //d.Processing(choose);
         }
     }
 }
