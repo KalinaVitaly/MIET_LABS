@@ -1,8 +1,9 @@
 package PersonClasses;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Person {
+public abstract class Person implements Serializable {
     protected int age;
     protected String name;
     protected String surname;

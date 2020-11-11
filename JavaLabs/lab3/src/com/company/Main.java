@@ -26,23 +26,23 @@ public class Main {
         Parent parent4 = new Parent("Luicy", "Mansurov", "PAssalam", true, 68);
 
         Scanner in = new Scanner(System.in);
-        Demostration d = new Demostration();
-        d.add(student1);
-        d.add(student2);
-        d.add(student3);
-        d.add(student4);
-        d.add(botanist1);
-        d.add(botanist2);
-        d.add(botanist3);
-        d.add(botanist4);
-        d.add(coolParent1);
-        d.add(coolParent2);
-        d.add(coolParent3);
-        d.add(coolParent4);
-        d.add(parent1);
-        d.add(parent2);
-        d.add(parent3);
-        d.add(parent4);
+        Demonstration d = new Demonstration();
+//        d.add(student1);
+//        d.add(student2);
+//        d.add(student3);
+//        d.add6(student4);
+//        d.add(botanist1);
+//        d.add(botanist2);
+//        d.add(botanist3);
+//        d.add(botanist4);
+//        d.add(coolParent1);
+//        d.add(coolParent2);
+//        d.add(coolParent3);
+//        d.add(coolParent4);
+//        d.add(parent1);
+//        d.add(parent2);
+//        d.add(parent3);
+//        d.add(parent4);
 
         while (true) {
             d.MainMenuDisplay();

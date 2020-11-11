@@ -1,13 +1,18 @@
 package com.company;
 
 import PersonClasses.*;
+import Managment.FileManager;
 
 import java.util.ArrayList;
 
-public class Demostration {
-    public ArrayList<Person> people = new ArrayList<Person>();
+public class Demonstration {
+    private ArrayList<Person> people;
+    private String filename;
 
-    public Demostration() {}
+    public Demonstration() {
+        people = new ArrayList<Person>();
+        filename = "/home/vitaly/Документы/MIET_LABS/JavaLabs/DataBase";
+    }
 
     public void add(Person person) {
         people.add(person);
@@ -23,6 +28,8 @@ public class Demostration {
         System.out.println("5) Create pairs student and parent");
         System.out.println("6) Create pairs botanist and cool parent");
         System.out.println("7) Print all information");
+        System.out.println("8) Save all on File");
+        System.out.println("9) Read all from file");
         System.out.println("--------------");
     }
 
@@ -52,6 +59,12 @@ public class Demostration {
         }
         else if (_choose == 7) {
             Print();
+        }
+        else if (_choose == 8) {
+            FileManager.Save(people, filename);
+        }
+        else if (_choose == 9) {
+            people = FileManager.Load(filename);
         }
     }
 
