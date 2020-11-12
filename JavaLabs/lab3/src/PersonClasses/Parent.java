@@ -3,10 +3,11 @@ package PersonClasses;
 import PersonClasses.Person;
 import PersonClasses.Student;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Parent extends Person {
+public class Parent extends Person implements Serializable {
     private Student student;
 
     public Parent(String _name, String _surname, String _patronymic,

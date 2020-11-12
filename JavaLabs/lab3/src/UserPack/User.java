@@ -1,8 +1,9 @@
 package UserPack;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class User {
+public abstract class User implements Serializable {
     protected ArrayList<String> main_menu;
     protected String login;
     protected String password;
@@ -11,18 +12,18 @@ public abstract class User {
     public User() {
         file_verification = "/home/vitaly/Документы/MIET_LABS/JavaLabs/lab3/Verification";
         main_menu = new ArrayList<String>();
-        main_menu.add("Add Botanist\n");
-        main_menu.add("Add Student\n");
-        main_menu.add("Add Parent\n");
-        main_menu.add("Add CoolParent\n");
-        main_menu.add("Create pairs student and parent\n");
-        main_menu.add("Create pairs botanist and cool parent\n");
-        main_menu.add("Print all information\n");
-        main_menu.add("Save all on File\n");
-        main_menu.add("Read all from file\n");
-        main_menu.add("Print history activity\n");
-        main_menu.add("Print history errors\n");
-        main_menu.add("Exit\n");
+        main_menu.add("Add Botanist");
+        main_menu.add("Add Student");
+        main_menu.add("Add Parent");
+        main_menu.add("Add CoolParent");
+        main_menu.add("Create pairs student and parent");
+        main_menu.add("Create pairs botanist and cool parent");
+        main_menu.add("Print all information");
+        main_menu.add("Save all on file");
+        main_menu.add("Read all from file");
+        main_menu.add("Print history activity");
+        main_menu.add("Print history errors");
+        main_menu.add("Exit");
     }
 
     public abstract ArrayList<String> getMenu();

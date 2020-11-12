@@ -3,10 +3,11 @@ package PersonClasses;
 import PersonClasses.Person;
 import PersonClasses.CoolParent;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Botanist extends Person {
+public class Botanist extends Person  implements Serializable {
     private int average_mark;
     private CoolParent parent;
 

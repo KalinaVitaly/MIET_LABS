@@ -23,6 +23,12 @@ public class Demonstration {
         date = new Date();
     }
 
+    public void Setup() {
+        activity_history = FileManager.Load(file_activity_history);
+        people = FileManager.Load(Person.getFilenamePersons());
+        GarbageError.Load();
+    }
+
     public void add(Person person) {
         people.add(person);
         System.out.print("Add: " + person.toString());
@@ -38,7 +44,7 @@ public class Demonstration {
         int number = 1;
         System.out.println("-----MENU-----");
         for(String i : user.getMenu()) {
-            System.out.print(number + ") " + i);
+            System.out.println(number + ") " + i);
             ++number;
         }
         System.out.println("--------------");
@@ -86,47 +92,48 @@ public class Demonstration {
     }
 
     public void Processing(User user, String _choose) {
+        System.out.println(user.getMenu().contains(_choose));
         if (user.getMenu().contains(_choose)) {
-            if (_choose.equals("Add Botanist\n")) {
+            if (_choose.equals("Add Botanist")) {
                 Botanist botanist = new Botanist();
                 botanist.setData();
                 people.add(botanist);
             }
-            else if (_choose.equals("Add Student\n")) {
+            else if (_choose.equals("Add Student")) {
                 Student student = new Student();
                 student.setData();
                 people.add(student);
             }
-            else if (_choose.equals("Add Parent\n")) {
+            else if (_choose.equals("Add Parent")) {
                 Parent parent = new Parent();
                 parent.setData();
                 people.add(parent);
             }
-            else if (_choose.equals("Add CoolParent\n")) {
+            else if (_choose.equals("Add CoolParent")) {
                 CoolParent coolParent = new CoolParent();
                 coolParent.setData();
                 people.add(coolParent);
             }
-            else if (_choose.equals("Create pairs student and parent\n")) {
+            else if (_choose.equals("Create pairs student and parent")) {
                 CreatePairsStudentsAndParents();
             }
-            else if (_choose.equals("Create pairs botanist and cool parent\n")) {
+            else if (_choose.equals("Create pairs botanist and cool parent")) {
                 CreatePairsBotanistsAndCoolParents();
             }
-            else if (_choose.equals("Print all information\n")) {
+            else if (_choose.equals("Print all information")) {
                 Print();
             }
-            else if (_choose.equals("Save all on File\n")) {
+            else if (_choose.equals("Save all on File")) {
                 FileManager.Save(people, Person.getFilenamePersons());
             }
-            else if (_choose.equals("Read all from file\n")) {
+            else if (_choose.equals("Read all from file")) {
                 people = FileManager.Load(Person.getFilenamePersons());
             }
-            else if (_choose.equals("Print history activity\n")) {
+            else if (_choose.equals("Print history activity")) {
                 PrintHistoryActivity();
             }
-            else if (_choose.equals("Print history errors\n")) {
-
+            else if (_choose.equals("Print history errors")) {
+                GarbageError.PrintHistoryErrors();
             }
             else if (_choose.equals("Exit")) {
                 ExitProgram();
@@ -138,14 +145,14 @@ public class Demonstration {
         }
     }
 
-    void CreatePairsStudentsAndParents() {
+    public void CreatePairsStudentsAndParents() {
         for(Person i : people) {
             if (i instanceof Student && !i.getHasPair()) {
                 ((Student)i).CreatePair(people);
             }
         }
     }
-    void CreatePairsBotanistsAndCoolParents() {
+    public void CreatePairsBotanistsAndCoolParents() {
         for(Person i : people) {
             if (i instanceof Botanist && !i.getHasPair()) {
                 ((Botanist)i).CreatePair(people);
@@ -153,20 +160,21 @@ public class Demonstration {
         }
     }
 
-    void PrintHistoryActivity() {
+    public void PrintHistoryActivity() {
         for (String i : activity_history) {
-            System.out.print(i);
+            System.out.println(i);
         }
     }
 
-    void Print() {
+    public void Print() {
         for (Person i : people) {
             System.out.print(i.toString());
         }
     }
 
-    void ExitProgram() {
+    public void ExitProgram() {
         FileManager.Save(GarbageError.getErrorHistory(), GarbageError.getFileError());
         FileManager.Save(activity_history, file_activity_history);
+        GarbageError.Save();
     }
 }

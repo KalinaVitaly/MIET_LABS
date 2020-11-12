@@ -3,10 +3,11 @@ package PersonClasses;
 import PersonClasses.Person;
 import PersonClasses.Parent;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Student extends Person{
+public class Student extends Person implements Serializable {
     private int average_mark;
     private Parent parent;
 

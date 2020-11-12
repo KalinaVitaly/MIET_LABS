@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
     ArrayList<User> users = new ArrayList<User>();
     users = FileManager.Load(User.getFileVerification());
-    User user = null;
+    User user = new RootUser();
     Scanner in = new Scanner(System.in);
     Demonstration d = new Demonstration();
     boolean user_entered = false;
@@ -51,24 +51,28 @@ public class Main {
 //        d.add(parent2);
 //        d.add(parent3);
 //        d.add(parent4);
-
-        while (true) {
-            if (!user_entered) {
-                d.FirstMainMenuDisplay();
-                choose = in.nextInt();
-                user = d.ProcessingFirst(users, choose);
-                if (!user.equals(null)){
-                    user_entered = true;
-                }
-            }
-            else {
-                d.SecondMainMenu(user);
-                String _choose = in.nextLine();
-                d.Processing(user, _choose);
-            }
-
-
-            //d.Processing(choose);
+        d.Setup();
+        while(true){
+            d.SecondMainMenu(user);
+            String _choose = in.nextLine();
+            d.Processing(user, _choose);
         }
+
+        //        while (true) {
+//            System.out.println(users.size());
+//            if (!user_entered) {
+//                d.FirstMainMenuDisplay();
+//                choose = in.nextInt();
+//                user = d.ProcessingFirst(users, choose);
+//                if (!user.equals(null)){
+//                    user_entered = true;
+//                }
+//            }
+//            else {
+//                d.SecondMainMenu(user);
+//                String _choose = in.nextLine();
+//                //d.Processing(user, _choose);
+//            }
+//        }
     }
 }

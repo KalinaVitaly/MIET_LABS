@@ -1,8 +1,9 @@
 package UserPack;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class RootUser extends User{
+public class RootUser extends User implements Serializable {
     boolean debug;
     boolean auto_test;
 
