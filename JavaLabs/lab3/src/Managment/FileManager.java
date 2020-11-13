@@ -3,6 +3,7 @@ package Managment;
 import java.util.ArrayList;
 import PersonClasses.*;
 import java.io.*;
+import java.io.FileNotFoundException;
 
 public class FileManager {
     public FileManager() {}
@@ -24,21 +25,23 @@ public class FileManager {
         }
     }
 
-    public static <T> T Load(String path) {
-        T value = null;
+    public static <T> ArrayList<T> Load(String path) {
+        ArrayList<T> value = null;
         try {
             FileInputStream fi = new FileInputStream(new File(path));
             ObjectInputStream oi = new ObjectInputStream(fi);
             // Read objects
-            value = (T) oi.readObject();
+            value = (ArrayList) oi.readObject();
             oi.close();
             fi.close();
         } catch (FileNotFoundException e) {
-
+            System.out.println(e.getMessage() + "hui1");
         } catch (IOException e) {
-
+            System.out.println(e.getMessage() + "hui2");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage() + "hui3");
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage() + "hui4");
         }
         return value;
     }

@@ -21,8 +21,6 @@ public abstract class User implements Serializable {
         main_menu.add("Print all information");
         main_menu.add("Save all on file");
         main_menu.add("Read all from file");
-        main_menu.add("Print history activity");
-        main_menu.add("Print history errors");
         main_menu.add("Exit");
     }
 

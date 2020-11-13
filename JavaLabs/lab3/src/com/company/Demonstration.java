@@ -1,37 +1,25 @@
 package com.company;
 
-import Managment.GarbageError;
 import PersonClasses.*;
 import Managment.FileManager;
 import UserPack.*;
-
-import java.io.File;
+import Managment.MyLogger;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Scanner;
 
 public class Demonstration {
     private ArrayList<Person> people;
     private Date date;
-    private ArrayList<String> activity_history;
-    private final String file_activity_history;
+    private final String filename_persons;
+    private final String file_error;
 
     public Demonstration() {
         people = new ArrayList<Person>();
-        activity_history = new ArrayList<String>();
-        file_activity_history = "/home/vitaly/Документы/MIET_LABS/JavaLabs/lab3/DataBaseActivityHistory";
+        MyLogger.Setup("Logger.txt");
+        MyLogger.log(MyLogger.LogLevel.INFO, "Demonstration");
+        filename_persons = "/home/vitaly/Документы/MIET_LABS/JavaLabs/lab3/DataBase";
+        file_error = "/home/vitaly/Документы/MIET_LABS/JavaLabs/lab3/Log";
         date = new Date();
-    }
-
-    public void Setup() {
-        activity_history = FileManager.Load(file_activity_history);
-        people = FileManager.Load(Person.getFilenamePersons());
-        GarbageError.Load();
-    }
-
-    public void add(Person person) {
-        people.add(person);
-        System.out.print("Add: " + person.toString());
     }
 
     public void FirstMainMenuDisplay() {
@@ -39,56 +27,6 @@ public class Demonstration {
         System.out.println("1) Sign Up");
         System.out.println("2) Sign In");
         System.out.println("--------------");
-    }
-    public void SecondMainMenu(User user) {
-        int number = 1;
-        System.out.println("-----MENU-----");
-        for(String i : user.getMenu()) {
-            System.out.println(number + ") " + i);
-            ++number;
-        }
-        System.out.println("--------------");
-    }
-
-    public User ProcessingFirst(ArrayList<User> users, int _choose) {
-        Scanner in = new Scanner(System.in);
-        if (_choose == 1) {
-            User user;
-            System.out.println("Enter Yes if root user else No:\t");
-            if (in.nextLine().equals("Yes")) {
-                user = new RootUser();
-            }
-            else {
-                user = new OperatorUser();
-            }
-            System.out.println("Enter login:\t");
-            String input = in.nextLine();
-            user.setLogin(input);
-            System.out.println("Enter password:\t");
-            input = in.nextLine();
-            user.setPassword(input);
-            users.add(user);
-            FileManager.Save(users, User.getFileVerification());
-            activity_history.add(date.toString() + "\t" + _choose);
-            return user;
-        }
-        else if (_choose == 2) {
-            System.out.println("Enter login:\t");
-            String input1 = in.nextLine();
-            System.out.println("Enter password:\t");
-            String input2 = in.nextLine();
-            for(User i : users) {
-                if (i.getPassword().equals(input2) && i.getLogin().equals(input1)) {
-                    System.out.println("Hello " + input1);
-                    return i;
-                }
-            }
-            activity_history.add(date.toString() + "\t" + _choose);
-        }
-        else {
-            GarbageError.addError("Incorrect choose: " + _choose);
-        }
-        return null;
     }
 
     public void Processing(User user, String _choose) {
@@ -121,7 +59,7 @@ public class Demonstration {
                 CreatePairsBotanistsAndCoolParents();
             }
             else if (_choose.equals("Print all information")) {
-                Print();
+                PrintAllPersonInformation();
             }
             else if (_choose.equals("Save all on File")) {
                 FileManager.Save(people, Person.getFilenamePersons());
@@ -129,19 +67,22 @@ public class Demonstration {
             else if (_choose.equals("Read all from file")) {
                 people = FileManager.Load(Person.getFilenamePersons());
             }
-            else if (_choose.equals("Print history activity")) {
-                PrintHistoryActivity();
-            }
-            else if (_choose.equals("Print history errors")) {
-                GarbageError.PrintHistoryErrors();
-            }
             else if (_choose.equals("Exit")) {
                 ExitProgram();
             }
-            activity_history.add(date.toString() + "\t" + _choose);
+            MyLogger.log(MyLogger.LogLevel.INFO, "Processing " + _choose);
         }
-        else {
-            GarbageError.addError("Incorrect choose: " + _choose);
+    }
+
+//    public void PrintHistoryActivity() {
+//        for (String i : activity_history) {
+//            System.out.println(i);
+//        }
+//    }
+
+    public void PrintAllPersonInformation() {
+        for (Person i : people) {
+            System.out.print(i.toString());
         }
     }
 
@@ -160,21 +101,51 @@ public class Demonstration {
         }
     }
 
-    public void PrintHistoryActivity() {
-        for (String i : activity_history) {
-            System.out.println(i);
+    public void SecondMainMenu(User user) {
+        int number = 1;
+        System.out.println("-----MENU-----");
+        for(String i : user.getMenu()) {
+            System.out.println(number + ") " + i);
+            ++number;
         }
+        System.out.println("--------------");
     }
 
-    public void Print() {
-        for (Person i : people) {
+    void PrintPerson() {
+        for(Person i : people) {
             System.out.print(i.toString());
         }
     }
 
+    public void add(Person person) {
+        people.add(person);
+        System.out.print("Add: " + person.toString());
+    }
+
+    public void Setup() {
+        people = FileManager.<Person>Load(filename_persons);
+        MyLogger.log(MyLogger.LogLevel.INFO, "Setup function");
+    }
     public void ExitProgram() {
-        FileManager.Save(GarbageError.getErrorHistory(), GarbageError.getFileError());
-        FileManager.Save(activity_history, file_activity_history);
-        GarbageError.Save();
+        FileManager.<ArrayList<Person>>Save(people, filename_persons);
+    }
+
+    public void addPerson() {
+        people.add(new Student("Andrew", "Monkey", "Roma", true, 34, 4));
+        people.add(new Student("Israel", "Monkey", "Vardy", true, 34, 4));
+        people.add(new Student("John", "Monkey", "Ahroma", true, 34, 4));
+        people.add(new Student("Jeimi", "Monkey", "Luicy", true, 34, 4));
+        people.add(new Botanist("Alan", "Turing", "Sancho", true, 14, 5));
+        people.add(new Botanist("Elvin", "Rasberry", "Scho", true, 14, 4));
+        people.add(new Botanist("John", "Nash", "Larson", true, 14, 3));
+        people.add(new Botanist("Salim", "NoTuring", "Sancho", true, 14, 2));
+        people.add(new CoolParent("Salim", "NoTuring", "Sancho", true, 28, 100000));
+        people.add(new CoolParent("Grisha", "Nuing", "AsapSancho", true, 29, 10000));
+        people.add(new CoolParent("Morgenshtern", "Aguero", "Maradonovich", true, 34, 1000));
+        people.add(new CoolParent("Salim", "NoTuring", "Sancho", true, 19, 100));
+        people.add(new Parent("Roma", "Monkey", "Assalam", true, 68));
+        people.add(new Parent("Vardy", "Akimov", "VAssalam", true, 68));
+        people.add(new Parent("Ahroma", "Salimov", "XAssalam", true, 68));
+        people.add(new Parent("Luicy", "Mansurov", "PAssalam", true, 68));
     }
 }

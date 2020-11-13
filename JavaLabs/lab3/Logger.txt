@@ -1,0 +1,7 @@
+2020/11/13 15:39:27 - INFO: Demonstration
+2020/11/13 15:39:28 - INFO: Setup function
+2020/11/13 15:40:15 - INFO: Demonstration
+2020/11/13 15:40:15 - INFO: Setup function
+2020/11/13 15:40:54 - INFO: Processing Print all information
+2020/11/13 15:41:12 - INFO: Processing Create pairs student and parent
+2020/11/13 15:41:22 - INFO: Processing Exit
