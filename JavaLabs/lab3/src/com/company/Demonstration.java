@@ -35,7 +35,7 @@ public class Demonstration {
         Scanner in = new Scanner(System.in);
         User nuser = null;
         if (_choose.equals("Sign In")) {
-            //Enter in system
+            //Registration
             System.out.println("Enter Yes if root user else No:\t");
             if (in.nextLine().equals("Yes")) {
                 nuser = new RootUser();

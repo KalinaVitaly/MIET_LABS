@@ -54,3 +54,22 @@
 2020/11/13 19:10:39 - INFO: Setup function
 2020/11/13 19:10:50 - INFO: Processing Sign Up
 2020/11/13 19:11:01 - INFO: Processing Exit
+2020/11/13 19:16:30 - INFO: Demonstration
+2020/11/13 19:16:30 - INFO: Setup function
+2020/11/13 19:20:13 - INFO: Demonstration
+2020/11/13 19:20:13 - INFO: Setup function
+2020/11/13 19:21:09 - INFO: Processing Sign Up
+2020/11/13 19:21:26 - INFO: Demonstration
+2020/11/13 19:21:26 - INFO: Setup function
+2020/11/13 19:22:34 - INFO: Demonstration
+2020/11/13 19:22:34 - INFO: Setup function
+2020/11/13 19:23:03 - INFO: Processing Debug
+2020/11/13 19:24:42 - INFO: Demonstration
+2020/11/13 19:24:42 - INFO: Setup function
+2020/11/13 19:25:46 - INFO: Demonstration
+2020/11/13 19:25:46 - INFO: Setup function
+2020/11/13 19:26:20 - INFO: Processing Delete debug
+2020/11/13 19:29:48 - INFO: Demonstration
+2020/11/13 19:29:49 - INFO: Setup function
+2020/11/13 19:30:15 - INFO: Processing Delete debug
+2020/11/13 19:30:27 - INFO: Processing Exit
