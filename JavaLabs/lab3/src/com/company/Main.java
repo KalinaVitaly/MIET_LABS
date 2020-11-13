@@ -9,18 +9,28 @@ import UserPack.*;
 
 public class Main {
     public static void main(String[] args) {
-    	RootUser root = new RootUser();
 	    Demonstration d = new Demonstration();
+	    User user = null;
+	    boolean user_initial = false;
 	    Scanner in = new Scanner(System.in);
 	    String choose;
 	    d.Setup();
+	    d.PrintUsersCount();
 	    while(true) {
-	    	d.SecondMainMenu(root);
-	    	choose = in.nextLine();
-	    	d.Processing(root, choose);
+	    	if (user_initial) {
+				d.SecondMainMenu(user);
+				choose = in.nextLine();
+				d.Processing(user, choose);
+			}
+	    	else {
+	    		d.FirstMainMenuDisplay();
+				choose = in.nextLine();
+				user = d.ProccessingFirst(choose);
+				if (!user.equals(null)) {
+					user_initial = true;
+				}
+			}
+
 		}
-	    //d.PrintPerson();
-	    //d.addPerson();
-	    //d.ExitProgram();
     }
 }

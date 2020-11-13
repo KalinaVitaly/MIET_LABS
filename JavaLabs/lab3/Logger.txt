@@ -5,3 +5,52 @@
 2020/11/13 15:40:54 - INFO: Processing Print all information
 2020/11/13 15:41:12 - INFO: Processing Create pairs student and parent
 2020/11/13 15:41:22 - INFO: Processing Exit
+2020/11/13 16:28:49 - INFO: Demonstration
+2020/11/13 16:28:49 - INFO: Setup function
+2020/11/13 16:29:31 - INFO: Demonstration
+2020/11/13 16:29:32 - INFO: Setup function
+2020/11/13 16:35:36 - INFO: Demonstration
+2020/11/13 16:35:36 - INFO: Setup function
+2020/11/13 16:36:07 - INFO: Demonstration
+2020/11/13 16:36:07 - INFO: Setup function
+2020/11/13 16:36:54 - INFO: Demonstration
+2020/11/13 16:36:54 - INFO: Setup function
+2020/11/13 16:38:51 - INFO: Demonstration
+2020/11/13 16:38:52 - INFO: Setup function
+2020/11/13 16:39:04 - INFO: Demonstration
+2020/11/13 16:39:04 - INFO: Setup function
+2020/11/13 16:39:44 - INFO: Demonstration
+2020/11/13 16:39:44 - INFO: Setup function
+2020/11/13 16:47:09 - INFO: Demonstration
+2020/11/13 16:47:10 - INFO: Setup function
+2020/11/13 16:47:44 - INFO: Demonstration
+2020/11/13 16:47:44 - INFO: Setup function
+2020/11/13 16:48:49 - INFO: Demonstration
+2020/11/13 16:48:49 - INFO: Setup function
+2020/11/13 16:52:57 - INFO: Demonstration
+2020/11/13 16:52:58 - INFO: Setup function
+2020/11/13 17:07:26 - INFO: Demonstration
+2020/11/13 17:07:26 - INFO: Setup function
+2020/11/13 17:11:26 - INFO: Demonstration
+2020/11/13 17:11:26 - INFO: Setup function
+2020/11/13 17:32:37 - INFO: Demonstration
+2020/11/13 17:32:37 - INFO: Setup function
+2020/11/13 17:33:31 - INFO: Demonstration
+2020/11/13 17:33:31 - INFO: Setup function
+2020/11/13 18:31:15 - INFO: Processing Print all information
+2020/11/13 18:31:19 - INFO: Processing Exit
+2020/11/13 18:33:00 - INFO: Demonstration
+2020/11/13 18:33:00 - INFO: Setup function
+2020/11/13 18:34:17 - INFO: Demonstration
+2020/11/13 18:34:17 - INFO: Setup function
+2020/11/13 18:34:27 - INFO: Processing Exit
+2020/11/13 18:34:39 - INFO: Demonstration
+2020/11/13 18:34:40 - INFO: Setup function
+2020/11/13 19:08:25 - INFO: Demonstration
+2020/11/13 19:08:26 - INFO: Setup function
+2020/11/13 19:09:13 - INFO: Processing Print all information
+2020/11/13 19:09:18 - INFO: Processing Exit
+2020/11/13 19:10:39 - INFO: Demonstration
+2020/11/13 19:10:39 - INFO: Setup function
+2020/11/13 19:10:50 - INFO: Processing Sign Up
+2020/11/13 19:11:01 - INFO: Processing Exit

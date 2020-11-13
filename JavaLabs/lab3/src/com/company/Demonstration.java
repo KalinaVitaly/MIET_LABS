@@ -6,20 +6,21 @@ import UserPack.*;
 import Managment.MyLogger;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Demonstration {
     private ArrayList<Person> people;
-    private Date date;
+    private ArrayList<User> users;
     private final String filename_persons;
-    private final String file_error;
+    private final String file_verification;
 
     public Demonstration() {
         people = new ArrayList<Person>();
+        users = new ArrayList<User>();
         MyLogger.Setup("Logger.txt");
         MyLogger.log(MyLogger.LogLevel.INFO, "Demonstration");
         filename_persons = "/home/vitaly/Документы/MIET_LABS/JavaLabs/lab3/DataBase";
-        file_error = "/home/vitaly/Документы/MIET_LABS/JavaLabs/lab3/Log";
-        date = new Date();
+        file_verification = "/home/vitaly/Документы/MIET_LABS/JavaLabs/lab3/DataBase2";
     }
 
     public void FirstMainMenuDisplay() {
@@ -27,6 +28,50 @@ public class Demonstration {
         System.out.println("1) Sign Up");
         System.out.println("2) Sign In");
         System.out.println("--------------");
+    }
+
+    public User ProccessingFirst(String _choose) {
+        System.out.println(users.size());
+        Scanner in = new Scanner(System.in);
+        User nuser = null;
+        if (_choose.equals("Sign In")) {
+            //Enter in system
+            System.out.println("Enter Yes if root user else No:\t");
+            if (in.nextLine().equals("Yes")) {
+                nuser = new RootUser();
+            }
+            else {
+                nuser = new OperatorUser();
+            }
+            System.out.println("Enter login:\t");
+            String input = in.nextLine();
+            nuser.setLogin(input);
+            System.out.println("Enter password:\t");
+            input = in.nextLine();
+            nuser.setPassword(input);
+            users.add(nuser);
+            return nuser;
+        }
+        else if(_choose.equals("Sign Up")) {
+            System.out.println("Enter login:\t");
+            String input1 = in.nextLine();
+            System.out.println("Enter password:\t");
+            String input2 = in.nextLine();
+            for(User i : users) {
+                if (i.getPassword().equals(input2) && i.getLogin().equals(input1)) {
+                    System.out.println("Hello " + input1);
+                    if (i instanceof RootUser) {
+                        nuser = new RootUser();
+                    }
+                    else {
+                        nuser = new OperatorUser();
+                    }
+                    nuser = i;
+                }
+            }
+        }
+        MyLogger.log(MyLogger.LogLevel.INFO, "Processing " + _choose);
+        return nuser;
     }
 
     public void Processing(User user, String _choose) {
@@ -70,15 +115,25 @@ public class Demonstration {
             else if (_choose.equals("Exit")) {
                 ExitProgram();
             }
-            MyLogger.log(MyLogger.LogLevel.INFO, "Processing " + _choose);
+            else if (_choose.equals("Add debug")) {
+                user = (RootUser)user;
+                ((RootUser) user).addDebug();
+            }
+            else if(_choose.equals("Add auto test")) {
+                user = (RootUser)user;
+                ((RootUser) user).addAutoTest();
+            }
+            else if (_choose.equals("Delete auto test")) {
+                user = (RootUser)user;
+                ((RootUser) user).removeAutoTest();
+            }
+            else if (_choose.equals("Delete debug")) {
+                user = (RootUser)user;
+                ((RootUser) user).removeDebug();
+            }
         }
+        MyLogger.log(MyLogger.LogLevel.INFO, "Processing " + _choose);
     }
-
-//    public void PrintHistoryActivity() {
-//        for (String i : activity_history) {
-//            System.out.println(i);
-//        }
-//    }
 
     public void PrintAllPersonInformation() {
         for (Person i : people) {
@@ -99,6 +154,10 @@ public class Demonstration {
                 ((Botanist)i).CreatePair(people);
             }
         }
+    }
+
+    public void PrintUsersCount() {
+        System.out.println(users.size());
     }
 
     public void SecondMainMenu(User user) {
@@ -124,10 +183,12 @@ public class Demonstration {
 
     public void Setup() {
         people = FileManager.<Person>Load(filename_persons);
+        users = FileManager.<User>Load(file_verification);
         MyLogger.log(MyLogger.LogLevel.INFO, "Setup function");
     }
     public void ExitProgram() {
         FileManager.<ArrayList<Person>>Save(people, filename_persons);
+        FileManager.<ArrayList<User>>Save(users, file_verification);
     }
 
     public void addPerson() {
